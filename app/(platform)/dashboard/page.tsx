@@ -1,7 +1,7 @@
 "use client";
 import { useAuth, useUser } from "@clerk/nextjs";
 
-export const DashboardPage = () => {
+const DashboardPage = () => {
   const { userId } = useAuth();
   const { user } = useUser();
 

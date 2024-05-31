@@ -27,7 +27,13 @@ const CardList: FunctionComponent<CardListProps> = ({ type, status }) => {
     return <EmptyCard />;
   }
   return cards.map(({ title, _id }) => (
-    <Card id={_id} type={type} title={title} isActive={status === "active"} />
+    <Card
+      key={_id}
+      id={_id}
+      type={type}
+      title={title}
+      isActive={status === "active"}
+    />
   ));
 };
 

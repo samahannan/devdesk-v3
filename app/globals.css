@@ -19,7 +19,7 @@ body,
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 200, 27%, 28%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -92,7 +92,46 @@ body,
 
 .gradient_text {
   /* background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%); */
-  background-color: #fad961;
-  background-image: linear-gradient(90deg, #fad961 0%, #f76b1c 100%);
+  background-color: #fe6d73;
+  /* background-image: linear-gradient(90deg, #fad961 0%, #f76b1c 100%); */
   @apply px-2 text-white rounded-md;
 }
+
+.column_title {
+  /* border-radius: 100px; */
+  @apply mb-4;
+  /* margin-right: 8px; */
+  padding: 5px 16px 5px 8px;
+  font-size: 16px;
+  line-height: 1;
+  /* display: inline-flex; */
+}
+
+.dotted {
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background-size: 20px 20px;
+  background-image: repeating-linear-gradient(
+    0deg,
+    #444cf7,
+    #444cf7 1px,
+    #e5e5f7 1px,
+    #e5e5f7
+  );
+}
+/* 
+.bg-freelance {
+  background-color: #ffe2b3;
+}
+.bg-personal {
+  background-color: #36e7d6;
+}
+
+.bg-study {
+  background-color: #ff6b6b;
+}
+
+.bg-interview {
+  background-color: #5386e4;
+  color: #fff;
+} */

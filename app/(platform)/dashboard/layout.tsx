@@ -1,10 +1,16 @@
+import { Toaster } from "sonner";
 import Navbar from "./_components/Navbar";
+import Sidebar from "./_components/sidebar";
 
 const PlatformLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="h-full">
       <Navbar />
-      {children}
+      <div className="pt-14 flex h-full">
+        <Sidebar />
+        <div className="w-full">{children}</div>
+      </div>
+      <Toaster position="bottom-right" />
     </div>
   );
 };

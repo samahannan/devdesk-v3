@@ -1,11 +1,13 @@
 import { StatusConvexType } from "@/lib/types";
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { cardFields } from "./schema";
+import { Doc } from "./_generated/dataModel";
+import { vUpdateCardInfo } from "./validators";
 
 export const create = mutation({
   args: {
     title: v.string(),
-    client_name: v.string(),
     status: StatusConvexType,
     type: v.string(),
   },
@@ -24,7 +26,7 @@ export const create = mutation({
       status: args.status,
       repo: "",
       type: args.type,
-      client_name: args.client_name,
+      client_name: "",
       notes: "",
       paid: false,
       inspiration: [],
@@ -49,10 +51,37 @@ export const deleteCard = mutation({
       throw new Error("Not authenticated");
     }
     const userId = identity.subject;
-    if (existingTask._id !== args.id) {
+    if (existingTask.user_id !== userId) {
       throw new Error("Unauthorized");
     }
     const card = await ctx.db.delete(args.id);
+    return card;
+  },
+});
+
+export const editCard = mutation({
+  args: {
+    id: v.id("card"),
+    data: vUpdateCardInfo,
+  },
+  handler: async (ctx, args) => {
+    const existingTask = await ctx.db.get(args.id);
+    if (!existingTask) {
+      throw Error("Not found.");
+    }
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+    const userId = identity.subject;
+    if (existingTask.user_id !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const updatedInfo = { ...args.data } as Partial<Doc<"card">>;
+    const card = await ctx.db.patch(args.id, {
+      ...updatedInfo,
+    });
     return card;
   },
 });

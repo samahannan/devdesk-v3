@@ -1,65 +1,97 @@
-import * as React from "react";
-
-import { cn } from "@/lib/utils";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { Status } from "@/lib/types";
+import { useMutation } from "convex/react";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FilePlus, FilePlus2 } from "lucide-react";
-import CreateFreelanceCard from "@/app/(platform)/dashboard/_forms/CreateFreelanceCard";
+import localFont from "next/font/local";
+import { FunctionComponent, useEffect } from "react";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { SelectStatus } from "./SelectStatus";
 
-export function NewCard({ form }: any) {
-  const [open, setOpen] = React.useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-
-  if (isDesktop) {
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button size="sm" variant="outline" className="flex gap-2">
-            <FilePlus size={18} />
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">{form}</DialogContent>
-      </Dialog>
-    );
-  }
-
-  return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        {/* <DrawerHeader className="text-left">
-          <DrawerTitle>New Card</DrawerTitle>
-          <DrawerDescription>Add a new card</DrawerDescription>
-        </DrawerHeader> */}
-        {form}
-        <DrawerFooter className="pt-2">
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
+const headingFont = localFont({
+  src: "../../../../public/font/relative-faux-webfont.woff2",
+});
+interface NewCard {
+  type: string;
+  status: Status;
+  onSuccess: () => void;
 }
+
+const NewCard: FunctionComponent<NewCard> = ({ type, status, onSuccess }) => {
+  const createCard = useMutation(api.card.create);
+
+  // 1. Define your form.
+  const form = useForm();
+  const create = useMutation(api.card.create);
+
+  useEffect(() => {
+    form.setFocus("title");
+  }, [form]);
+
+  // 2. Define a submit handler.
+  function onSubmit(values: any) {
+    const { title, client_name } = values;
+    console.log(values);
+    const promise = create({
+      title,
+      status,
+      type,
+    });
+    toast.promise(promise, {
+      loading: "Creating a new task...",
+      success: "New task created!",
+      error: "Failed to create a new task.",
+    });
+
+    promise.then(() => {
+      onSuccess();
+      form.reset();
+    });
+  }
+  return (
+    <div>
+      <div className={`card border rounded-sm relative bg-white `}>
+        <div className="p-3">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Title"
+                        {...field}
+                        className={`${headingFont.className} p-3  text-lg focus-visible:ring-0`}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex justify-end">
+                <Button variant="secondary" size="sm">
+                  Save
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NewCard;

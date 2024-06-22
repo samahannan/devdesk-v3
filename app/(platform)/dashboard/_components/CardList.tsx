@@ -9,12 +9,16 @@ import { Status } from "@/lib/types";
 interface CardListProps {
   type: string;
   status: Status;
+  showEmptyCard: boolean;
 }
 
-const CardList: FunctionComponent<CardListProps> = ({ type, status }) => {
+const CardList: FunctionComponent<CardListProps> = ({
+  type,
+  status,
+  showEmptyCard,
+}) => {
   const cards = useQuery(api.card.getCards, { type, status });
 
-  console.log("cards", cards);
   if (cards === undefined) {
     return (
       <div>
@@ -23,17 +27,11 @@ const CardList: FunctionComponent<CardListProps> = ({ type, status }) => {
       </div>
     );
   }
-  if (cards.length < 1) {
+  if (cards.length < 1 && showEmptyCard) {
     return <EmptyCard />;
   }
   return cards.map(({ title, _id }) => (
-    <Card
-      key={_id}
-      id={_id}
-      type={type}
-      title={title}
-      isActive={status === "active"}
-    />
+    <Card key={_id} id={_id} type={type} title={title} status={status} />
   ));
 };
 

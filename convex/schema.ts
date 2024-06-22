@@ -4,16 +4,16 @@ import { StatusConvexType } from "@/lib/types";
 
 export const cardFields = {
   title: v.string(),
-  description: v.string(),
-  client_name: v.string(),
-  notes: v.string(),
+  description: v.optional(v.string()),
+  client_name: v.optional(v.string()),
+  notes: v.optional(v.string()),
   type: v.string(),
-  due_date: v.string(),
-  repo: v.string(),
-  link: v.string(),
+  due_date: v.optional(v.string()),
+  repo: v.optional(v.string()),
+  link: v.optional(v.string()),
   user_id: v.string(),
   status: StatusConvexType,
-  paid: v.boolean(),
+  paid: v.optional(v.boolean()),
   inspiration: v.array(v.string()),
   tech_stack: v.array(v.string()),
 };

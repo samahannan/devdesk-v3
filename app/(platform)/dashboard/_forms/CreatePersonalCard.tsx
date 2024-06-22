@@ -25,9 +25,9 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { SelectStatus } from "../_components/SelectStatus";
 
-interface CreateFreelanceCardProps {}
+interface CreatePersonalCardProps {}
 
-const CreateFreelanceCard: FunctionComponent<CreateFreelanceCardProps> = () => {
+const CreatePersonalCard: FunctionComponent<CreatePersonalCardProps> = () => {
   // 1. Define your form.
   const form = useForm();
   const create = useMutation(api.card.create);
@@ -39,7 +39,7 @@ const CreateFreelanceCard: FunctionComponent<CreateFreelanceCardProps> = () => {
     const promise = create({
       title,
       status: "active",
-      type: "freelance",
+      type: "personal",
       client_name,
     });
     toast.promise(promise, {
@@ -52,8 +52,8 @@ const CreateFreelanceCard: FunctionComponent<CreateFreelanceCardProps> = () => {
   return (
     <div className="form">
       <DialogHeader className="mb-4">
-        <DialogTitle>New freelance project</DialogTitle>
-        <DialogDescription>Add new freelance task.</DialogDescription>
+        <DialogTitle>New personal project</DialogTitle>
+        <DialogDescription>Add new personal task.</DialogDescription>
       </DialogHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -75,7 +75,7 @@ const CreateFreelanceCard: FunctionComponent<CreateFreelanceCardProps> = () => {
             name="client_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Client Name</FormLabel>
+                <FormLabel>Desription</FormLabel>
                 <FormControl>
                   <Input {...field} className="focus-visible:ring-0" />
                 </FormControl>
@@ -93,4 +93,4 @@ const CreateFreelanceCard: FunctionComponent<CreateFreelanceCardProps> = () => {
   );
 };
 
-export default CreateFreelanceCard;
+export default CreatePersonalCard;

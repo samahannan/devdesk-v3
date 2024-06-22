@@ -18,6 +18,7 @@ const font = Poppins({
 const MarktetingPage: FunctionComponent<Props> = () => {
   return (
     <div className="flex items-center justify-center flex-col md:h-screen overflow-hidden relative">
+      <h1>TEST PAGE</h1>
       <div className="hero">
         <div className="hero_content flex items-center justify-center flex-col">
           <div className="flex items-center justify-center flex-col mb-6">
@@ -46,6 +47,7 @@ const MarktetingPage: FunctionComponent<Props> = () => {
             </span>{" "}
             prep.
           </div>
+
           <Button>Get Started</Button>
         </div>
 

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 import { SlidersHorizontal } from "lucide-react";
 import { FunctionComponent } from "react";
-import { NewCard } from "./NewCard";
+import { NewCardButton } from "./NewCardButton";
 
 interface DashboardBarProps {}
 
@@ -10,7 +10,7 @@ const DashboardBar: FunctionComponent<DashboardBarProps> = () => {
   return (
     <div className="flex justify-between  gap-2 mb-8">
       <div>
-        <NewCard />
+        <NewCardButton />
       </div>
       <div>
         <Button

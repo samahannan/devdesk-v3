@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { Inter } from "next/font/google";
-
+import "react-subtle-nudge/dist/index.css";
 const copy = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],

@@ -15,6 +15,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as card from "../card.js";
+import type * as validators from "../validators.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -26,6 +27,7 @@ import type * as card from "../card.js";
  */
 declare const fullApi: ApiFromModules<{
   card: typeof card;
+  validators: typeof validators;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

@@ -56,6 +56,9 @@ const Card: FunctionComponent<Card> = ({ type, title = "", id, status }) => {
   ) => {
     const promise = editCard({ id, data: { status: status } }).then(() => {
       dispatch({ type: "SHOW_NUDGE", payload: status });
+      setTimeout(()=>{
+        dispatch({ type: "HIDE_NUDGE", payload: '' });
+      }, 1000)
     });
     toast.promise(promise, {
       loading: "Pausing task...",
@@ -83,7 +86,7 @@ const Card: FunctionComponent<Card> = ({ type, title = "", id, status }) => {
       ></div> */}
         <h3 className={`${headingFont.className} p-3  text-lg`}>{title}</h3>
         <div className="p-3 text-[14px] flex gap-4 justify-between">
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             {(status === "active" || status === "paused") && (
               <TooltipProvider>
                 <Tooltip>
@@ -98,10 +101,14 @@ const Card: FunctionComponent<Card> = ({ type, title = "", id, status }) => {
                         )
                       }
                     >
-                      {status === "active" ? (
-                        <PauseCircle size={16} />
+                      {status === "active" ? (<div className="flex gap-1 items-center">
+                        <PauseCircle size={16} />Pause
+                      </div>
+                        
                       ) : (
-                        <PlayCircle size={16} />
+                        <div className="flex gap-1 items-center">
+                        <PlayCircle size={16} />Activate
+                      </div>
                       )}
                     </Button>
                   </TooltipTrigger>

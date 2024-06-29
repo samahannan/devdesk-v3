@@ -37,6 +37,7 @@ const CardGrid: FunctionComponent<CardGridProps> = ({ status }) => {
                   <NewCard
                     type={id}
                     status={status}
+                    onCancel={() => setShowNewCard("")}
                     onSuccess={() => setShowNewCard("")}
                   />
                 </motion.div>

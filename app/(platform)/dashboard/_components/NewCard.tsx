@@ -26,10 +26,10 @@ interface NewCard {
   type: string;
   status: Status;
   onSuccess: () => void;
+  onCancel: () => void;
 }
 
-const NewCard: FunctionComponent<NewCard> = ({ type, status, onSuccess }) => {
-  const createCard = useMutation(api.card.create);
+const NewCard: FunctionComponent<NewCard> = ({ type, status, onSuccess, onCancel }) => {
 
   // 1. Define your form.
   const form = useForm();
@@ -81,7 +81,10 @@ const NewCard: FunctionComponent<NewCard> = ({ type, status, onSuccess }) => {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-2">
+              <Button variant="outline" size="sm" type="button" onClick={() => onCancel()}>
+                  Cancel
+                </Button>
                 <Button variant="secondary" size="sm">
                   Save
                 </Button>

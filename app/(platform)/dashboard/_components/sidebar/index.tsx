@@ -1,8 +1,8 @@
-import { HomeIcon, PocketKnife, RefreshCcw } from "lucide-react";
+import { HomeIcon, PocketKnife, RefreshCcw, Settings } from "lucide-react";
 import Link from "next/link";
 import { FunctionComponent } from "react";
 
-interface SidebarProps {}
+interface SidebarProps { }
 
 const Sidebar: FunctionComponent<SidebarProps> = () => {
   return (
@@ -17,10 +17,17 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
       </Link>
       <Link
         className="flex gap-2 items-center text-sm rounded-sm hover:bg-secondary px-1 py-2"
-        href="/tools"
+        href="/dashboard/tools"
       >
         <PocketKnife size={18} />
         Packages & Tools
+      </Link>
+      <Link
+        className="flex gap-2 items-center text-sm rounded-sm hover:bg-secondary px-1 py-2"
+        href="/dashboard/settings"
+      >
+        <Settings size={20} />
+        Settings
       </Link>
     </aside>
   );

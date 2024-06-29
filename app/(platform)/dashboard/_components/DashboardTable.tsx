@@ -14,7 +14,7 @@ const DashboardTable: FunctionComponent<Props> = () => {
       <div className="flex justify-between">
         <TabsList className="h-[auto] w-full justify-start mb-4 p-0 bg-transparent">
           <TabsTrigger
-            className="relative text-3xl rounded-none shadow-none p-0 mr-1 opacity-40 data-[state=active]:shadow-none data-[state=active]:opacity-100"
+            className="relative text-3xl rounded-none shadow-none p-0 mr-1 text-foreground/40 data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:font-medium"
             value="active"
           >
             Active Tasks
@@ -22,7 +22,7 @@ const DashboardTable: FunctionComponent<Props> = () => {
           </TabsTrigger>
           <Minus color="#3e9392" size={26} />
           <TabsTrigger
-            className="relative text-3xl rounded-none shadow-none p-0 mr-1 opacity-40 data-[state=active]:shadow-none data-[state=active]:opacity-100"
+            className="relative text-3xl rounded-none shadow-none p-0 mr-1 text-foreground/40 data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:font-medium"
             value="paused"
           >
             Coming Up
@@ -30,7 +30,7 @@ const DashboardTable: FunctionComponent<Props> = () => {
           </TabsTrigger>{" "}
           <Minus color="#3e9392" size={26} />
           <TabsTrigger
-            className="relative text-3xl rounded-none shadow-none p-0 opacity-40  data-[state=active]:shadow-none data-[state=active]:opacity-100"
+            className="relative text-3xl rounded-none shadow-none p-0 text-foreground/40 data-[state=active]:shadow-none data-[state=active]:text-foreground data-[state=active]:font-medium"
             value="completed"
           >
             Completed
